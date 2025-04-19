@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+
+Sitemap: https://qrexperiences.com/sitemap.xml

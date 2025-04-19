@@ -1,0 +1,276 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // Uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Uses direct connection
+  // shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // Used for migrations
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  INFLUENCER
+  CREATOR
+  MANAGER
+  SUBSCRIBER
+}
+
+model User {
+  id                       String    @id @default(cuid())
+  name                     String?
+  username                 String?
+  gh_username              String?
+  storeId                  String?   @db.Text
+  storePassword            String?   @db.Text
+  isSubscribed             Boolean   @default(false)
+  isActive                 Boolean   @default(false)
+  email                    String?   @unique
+  emailVerified            DateTime?
+  image                    String?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  role                     UserRole  @default(USER)
+  accounts                 Account[]
+  sessions                 Session[]
+  sites                    Site[]
+  posts                    Post[]
+  siteMatch                Boolean  @default(false)
+  siteCount                Int?
+  stripeCustomerId         String?  @unique @map(name: "stripeCustomerId")
+  stripeSubscriptionId     String?  @map(name: "stripeSubscriptionId")
+  stripePriceId            String?  @map(name: "stripePriceId")
+  stripeCurrentPeriodEnd   DateTime? @map(name: "stripeCurrentPeriodEnd")
+
+  // Followers and Following relationships
+  followers                UserFollower[] @relation("UserFollowers")
+  following                UserFollower[] @relation("UserFollowing")
+
+  // Reverse relations for likes and comments (for both posts and sites)
+  comments                 Comment[]  @relation("UserComments") // This is correct
+  likes   Like[] @relation("UserLikes")  // Correct the relation name to match the reverse relation.
+
+  @@map(name: "users")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  postId    String?
+  siteId    String?
+
+  user      User     @relation("UserComments", fields: [userId], references: [id], onDelete: Cascade) // Relation to User
+  post      Post?    @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade) // Relation to Post
+  site      Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([postId])
+  @@index([siteId])
+}
+
+model Like {
+  id      String  @id @default(cuid())
+  userId  String
+  postId  String?
+  siteId  String?
+
+  user    User    @relation("UserLikes", fields: [userId], references: [id], onDelete: Cascade)
+  post    Post?   @relation("PostLikes", fields: [postId], references: [id], onDelete: Cascade)
+  site    Site?   @relation("SiteLikes", fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, siteId])  // Ensures each user can only like a specific site once
+  @@index([userId])
+  @@index([siteId])
+}
+
+
+model UserFollower {
+  id          String  @id @default(cuid()) @db.Uuid
+  followerId  String  // Use String instead of @db.Uuid
+  followingId String  // Use String instead of @db.Uuid
+  
+  follower    User    @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User    @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId]) // Prevents duplicate follower-following relationships
+  @@index([followerId, followingId])
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  refresh_token_expires_in Int?
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  oauth_token_secret       String?
+  oauth_token              String? @db.Text
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map(name: "accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken  String?  @unique
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+  @@map(name: "verification_tokens")
+}
+
+model Post {
+  id            String   @id @default(cuid())
+  title         String?  @db.Text
+  description   String?  @db.Text
+  content       String?  @db.Text
+  slug          String   @default(cuid())
+  image         String?  @db.Text @default("https://raw.githubusercontent.com/Kenstogram/assets/main/lsplaceholder.svg")
+  imageBlurhash String?  @db.Text @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  published     Boolean  @default(false)
+  siteId        String?
+  site          Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments      Comment[] @relation("PostComments") // Add reverse relation to comments
+
+  likes         Like[]   @relation("PostLikes") // Add reverse relation to likes
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Site {
+  id                   String   @id @default(cuid())
+  name                 String?
+  description          String?  @db.Text
+  collectionId         String?  @db.Text
+  clicks               Int?     @default(0)
+  clicklink            String?  @db.Text @unique
+  participants         Int?     @default(0)
+  livestreamVideoUrl   String?  @db.Text
+  MultivewVideoUrl     String?  @db.Text
+  Banner               String?  @db.Text
+  textColor            String?  @default("#ffffff") // Default to black, but can be customized
+  Playlist             Playlist[]
+  QrUrl                String?   @db.Text
+  linkId               String?   @db.Text
+  YouTubeUrl           String?  @db.Text
+  YouTubeKey           String?  @db.Text
+  TwitchKey            String?  @db.Text
+  logo                 String?  @db.Text @default("https://raw.githubusercontent.com/Kenstogram/assets/main/lsplaceholder.svg")
+  font                 String   @default("font-cal")
+  enableFeature                  Boolean  @default(false)
+  formSubmissions      SiteFormSubmission[]  // Reverse relation to SiteFormSubmission
+  image                String?  @db.Text @default("https://raw.githubusercontent.com/Kenstogram/assets/main/lsplaceholder.svg")
+  imageBlurhash        String?  @db.Text @default("data:image/png;base64,")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  user                 User?    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId               String?
+  private              Boolean  @default(true)
+  shareKey             String?  @db.Text
+  subdomain        String?  @unique
+  customDomain     String?  @db.Text
+  message404       String?  @db.Text @default("This page does not exist.")
+  posts                Post[]
+  golfScoreboards      GolfScoreboard[]
+  comments             Comment[]  // Add comments directly here for the site
+
+  likes               Like[]    @relation("SiteLikes") // Add reverse relation to likes
+
+  @@index([userId])
+}
+
+model SiteFormSubmission {
+  id        Int    @id @default(autoincrement())
+  siteId    String
+  name      String
+  email     String
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+model Playlist {
+  id                String         @id @default(cuid())
+  title             String?        @db.Text
+  description       String?        @db.Text
+  content           String?        @db.Text
+  slug              String         @default(cuid())
+  image             String?        @db.Text @default("https://raw.githubusercontent.com/Kenstogram/assets/main/lsplaceholder.svg")
+  imageBlurhash     String?        @db.Text @default("data:image/png;base64,")
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  published         Boolean        @default(false)
+  site              Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  siteId            String?
+  userId            String?
+  playlistVideos    PlaylistVideo[]
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model PlaylistVideo {
+  id                String   @id @default(cuid())
+  playlistId        String
+  videoUrl          String   @db.Text
+  order             Int      // Order of video in the playlist
+  startTime         Int?     // Start time in seconds
+  endTime           Int?     // End time in seconds
+  playlist          Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  @@index([playlistId, order])
+}
+
+model Example {
+  id            Int     @id @default(autoincrement())
+  name          String?
+  description   String? @db.Text
+  domainCount   Int?
+  url           String?
+  image         String? @db.Text
+  imageBlurhash String? @db.Text
+}
+
+model GolfScoreboard {
+  id         String   @id @default(cuid())
+  siteId     String
+  holeNumber Int      // 1 through 18
+  par        Int?     // Par for the hole
+  score      Int?     // Player's score for the hole
+  playerId   String?  // Optional: if scoring for specific players
+  site       Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  @@index([siteId, holeNumber])
+}

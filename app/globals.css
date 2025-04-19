@@ -1,0 +1,1366 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide i18n-string by tag name */
+i18n-string {
+  display: none;
+}
+
+/* Or hide i18n-string by class if you have one */
+.i18n-string-class {
+  display: none;
+}
+
+/* Custom pink color for the chart line if you want to target a specific class */
+.tremor-chart .tremor-line {
+  stroke: #f472b6 !important;  /* Pink color in hex (Tailwind's pink-400) */
+  fill: none;                  /* If it's an area chart and you don't want the area filled */
+}
+
+
+.custom-screen {
+  @apply mx-auto px-4 md:px-8;
+}
+
+header {
+  z-index: initial;
+  z-index: 90;
+}
+
+
+.qr-container {
+  position: relative;
+  display: inline-block;
+}
+
+.circle-pattern {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 340px;
+  height: 340px;
+  pointer-events: none;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.transition-image {
+  opacity: 100;
+  animation: fade 6s ease-in-out infinite;
+}
+
+@keyframes fade {
+  50%, 100% {
+    opacity: 1; /* Start and end with the first image */
+  }
+  50%, 100% {
+    opacity: 1; /* Show the first image */
+  }
+}
+
+.image-wrapper:hover .transition-image {
+  opacity: 1; /* Keep the second image visible on hover */
+}
+
+.gradient-link {
+  background: linear-gradient(270deg, #ff7e5f, #feb47b, #ff7e5f);
+  background-size: 400% 400%;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-position 0.5s ease-in-out, color 0.3s ease;
+  display: inline-block;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.gradient-link:hover {
+  background-position: 100% 0;
+  color: transparent;
+}
+
+
+#sunset-gradient-canvas {
+  --gradient-color-1: #ff6f61; /* Sunset Red */
+  --gradient-color-2: #ffb547; /* Sunset Orange */
+  --gradient-color-3: #6513b2; /* Sunset Purple */
+  --gradient-color-4: #fd94ff; /* Pale Pink */
+  --gradient-color-5: #c74b1c; /* Deep Coral */
+  --gradient-color-6: #f8a74b; /* Golden Amber */
+  --gradient-color-7: #5e2a91; /* Deep Lavender */
+  --gradient-color-8: #f0b3e0; /* Soft Pink */
+}
+
+#storm-gradient-canvas {
+  --gradient-color-1: #cc0066; /* Darker Neon Pink */
+  --gradient-color-2: #cc6600; /* Darker Neon Orange */
+  --gradient-color-3: #cccc00; /* Darker Neon Yellow */
+  --gradient-color-4: #00cc00; /* Darker Neon Green */
+  --gradient-color-5: #0099cc; /* Darker Neon Blue */
+  --gradient-color-6: #6600cc; /* Darker Neon Purple */
+  --gradient-color-7: #cc3399; /* Darker Neon Magenta */
+  --gradient-color-8: #cc0099; /* Darker Neon Fuchsia */
+}
+
+#aurora-gradient-canvas {
+  --gradient-color-1: #530000; /* Deep Red */
+  --gradient-color-2: #e40039; /* Bright Pink */
+  --gradient-color-3: #240101; /* Dark Maroon */
+  --gradient-color-4: #3f0000; /* Black Cherry */
+  --gradient-color-5: #b40431; /* Crimson */
+  --gradient-color-6: #ff4d4d; /* Light Coral */
+  --gradient-color-7: #a4002d; /* Rose */
+  --gradient-color-8: #750c0f; /* Dark Ruby */
+}
+
+#aurora-dark-gradient-canvas {
+  --gradient-color-1: #120053; /* Deep Blue */
+  --gradient-color-2: #d500e4; /* Bright Purple */
+  --gradient-color-3: #006236; /* Dark Green */
+  --gradient-color-4: #24003f; /* Midnight Purple */
+  --gradient-color-5: #3d0f4f; /* Dark Magenta */
+  --gradient-color-6: #7c3a8e; /* Dusty Violet */
+  --gradient-color-7: #a80f80; /* Fuchsia */
+  --gradient-color-8: #5e2a72; /* Dark Lavender */
+}
+
+#gradient-canvas-blue {
+  --gradient-color-1: #e1fa57; /* Bright Yellow */
+  --gradient-color-2: #ffb547; /* Golden Orange */
+  --gradient-color-3: #1350b2; /* Bright Blue */
+  --gradient-color-4: #03a2ff; /* Sky Blue */
+  --gradient-color-5: #005fbb; /* Ocean Blue */
+  --gradient-color-6: #00bfff; /* Light Blue */
+  --gradient-color-7: #0099cc; /* Deep Sky Blue */
+  --gradient-color-8: #00aaff; /* Vivid Cyan */
+}
+
+#gradient-canvas {
+  --gradient-color-1: #210011; /* Darker Neon Pink */
+  --gradient-color-2: #33012f; /* Darker Neon Orange */
+  --gradient-color-3: #98006a; /* Darker Neon Yellow */
+  --gradient-color-4: #210007; /* Darker Neon Green */
+  --gradient-color-5: #2c0026; /* Darker Neon Blue */
+  --gradient-color-6: #38026e; /* Darker Neon Purple */
+  --gradient-color-7: #2b001d; /* Darker Neon Magenta */
+  --gradient-color-8: #1f011d; /* Darker Neon Fuchsia */
+}
+
+#neon-gradient-canvas {
+  --gradient-color-1: #ff6f61; /* Sunset Red */
+  --gradient-color-2: #ffb547; /* Sunset Orange */
+  --gradient-color-3: #6513b2; /* Sunset Purple */
+  --gradient-color-4: #03a2ff; /* Bright Cyan */
+  --gradient-color-5: #ff3377; /* Hot Pink */
+  --gradient-color-6: #ffcd00; /* Bright Yellow */
+  --gradient-color-7: #008800; /* Bright Green */
+  --gradient-color-8: #00bbff; /* Bright Sky Blue */
+}
+
+#cosmic-gradient-canvas {
+  --gradient-color-1: #3a1c71; /* Cosmic Purple */
+  --gradient-color-2: #d76d77; /* Cosmic Pink */
+  --gradient-color-3: #ffaf7f; /* Cosmic Peach */
+  --gradient-color-4: #ffcbf3; /* Cosmic Lavender */
+  --gradient-color-5: #59359e; /* Dark Purple */
+  --gradient-color-6: #f59e9e; /* Soft Pink */
+  --gradient-color-7: #f9c8a3; /* Light Peach */
+  --gradient-color-8: #ffffff; /* Bright White */
+}
+
+#icefire-gradient-canvas {
+  --gradient-color-1: #00c6ff; /* Ice Blue */
+  --gradient-color-2: #0072ff; /* Bright Blue */
+  --gradient-color-3: #ff0080; /* Fire Pink */
+  --gradient-color-4: #ff4b2b; /* Fire Red */
+  --gradient-color-5: #00b2ff; /* Light Ice Blue */
+  --gradient-color-6: #ff5c5c; /* Light Fire Red */
+  --gradient-color-7: #ff9c4b; /* Light Fire Orange */
+  --gradient-color-8: #ff3030; /* Bright Red */
+}
+
+#oceanic-gradient-canvas {
+  --gradient-color-1: #005c97; /* Ocean Blue */
+  --gradient-color-2: #363795; /* Deep Blue */
+  --gradient-color-3: #008c95; /* Turquoise */
+  --gradient-color-4: #00d2ff; /* Light Cyan */
+  --gradient-color-5: #003e54; /* Deep Ocean */
+  --gradient-color-6: #00757f; /* Ocean Teal */
+  --gradient-color-7: #00a1c4; /* Seafoam */
+  --gradient-color-8: #00d4e4; /* Bright Aqua */
+}
+
+#candy-gradient-canvas {
+  --gradient-color-1: #ff3399; /* Neon Pink */
+  --gradient-color-2: #ff9933; /* Neon Orange */
+  --gradient-color-3: #ffff00; /* Neon Yellow */
+  --gradient-color-4: #00ff00; /* Neon Green */
+  --gradient-color-5: #00ccff; /* Neon Blue */
+  --gradient-color-6: #9933ff; /* Neon Purple */
+  --gradient-color-7: #ff66cc; /* Neon Magenta */
+  --gradient-color-8: #ff00ff; /* Neon Fuchsia */
+}
+
+#candy2-gradient-canvas {
+  --gradient-color-1: #ff9a8b; /* Candy Pink */
+  --gradient-color-2: #ff6a88; /* Candy Red */
+  --gradient-color-3: #ff3a6d; /* Candy Magenta */
+  --gradient-color-4: #f7d6e0; /* Candy Cotton Pink */
+  --gradient-color-5: #ff4e50; /* Bright Candy Red */
+  --gradient-color-6: #ff9c77; /* Candy Orange */
+  --gradient-color-7: #ff9bc0; /* Light Candy Pink */
+  --gradient-color-8: #ffd3db; /* Soft Candy Pink */
+}
+
+#techno-gradient-canvas {
+  --gradient-color-1: #000000; /* Black */
+  --gradient-color-2: #00c6ff; /* Techno Blue */
+  --gradient-color-3: #0072ff; /* Bright Blue */
+  --gradient-color-4: #00ff9d; /* Techno Green */
+  --gradient-color-5: #1e1e1e; /* Dark Gray */
+  --gradient-color-6: #00d4d4; /* Light Teal */
+  --gradient-color-7: #00ff5c; /* Bright Neon Green */
+  --gradient-color-8: #00d3ff; /* Bright Neon Cyan */
+}
+
+#retro-gradient-canvas {
+  --gradient-color-1: #ff5f6d; /* Retro Pink */
+  --gradient-color-2: #ffc371; /* Retro Orange */
+  --gradient-color-3: #ffb5e8; /* Retro Light Pink */
+  --gradient-color-4: #f1c40f; /* Retro Yellow */
+  --gradient-color-5: #d2691e; /* Retro Brown */
+  --gradient-color-6: #ffcc00; /* Retro Gold */
+  --gradient-color-7: #e67e22; /* Retro Light Orange */
+  --gradient-color-8: #e74c3c; /* Retro Red */
+}
+
+#galactic-gradient-canvas {
+  --gradient-color-1: #0f0c29; /* Galactic Black */
+  --gradient-color-2: #080055; /* Galactic Purple */
+  --gradient-color-3: #000000; /* Galactic Dark Blue */
+  --gradient-color-4: #2b00ff; /* Galactic Light Gray */
+  --gradient-color-5: #1c1c1c; /* Dark Space Gray */
+  --gradient-color-6: #5a0e8b; /* Deep Purple */
+  --gradient-color-7: #3a0d99; /* Darker Purple */
+  --gradient-color-8: #8e44ad; /* Light Purple */
+}
+
+#flame-gradient-canvas {
+  --gradient-color-1: #ff9a8b; /* Flame Pink */
+  --gradient-color-2: #f0bb31; /* Flame Yellow */
+  --gradient-color-3: #f7c1c7; /* Flame Red */
+  --gradient-color-4: #d83a6b; /* Flame Coral */
+  --gradient-color-5: #ff5c5c; /* Bright Flame Red */
+  --gradient-color-6: #ffcb5b; /* Light Flame Yellow */
+  --gradient-color-7: #ff7f50; /* Coral Red */
+  --gradient-color-8: #ffb3b3; /* Light Pink */
+}
+
+#vortex-gradient-canvas {
+  --gradient-color-1: #e1eec3; /* Vortex Green */
+  --gradient-color-2: #f05053; /* Vortex Red */
+  --gradient-color-3: #d03b73; /* Vortex Pink */
+  --gradient-color-4: #6e3a5c; /* Vortex Purple */
+  --gradient-color-5: #7bbf88; /* Light Green */
+  --gradient-color-6: #e57a00; /* Bright Orange */
+  --gradient-color-7: #a33f40; /* Dark Red */
+  --gradient-color-8: #5d0f2c; /* Dark Crimson */
+}
+
+#aurora-gradient-canvas {
+  --gradient-color-1: #00bfff; /* Aurora Blue */
+  --gradient-color-2: #ff0080; /* Aurora Pink */
+  --gradient-color-3: #ff4500; /* Aurora Orange */
+  --gradient-color-4: #7fff00; /* Aurora Green */
+  --gradient-color-5: #00ffcc; /* Bright Aqua */
+  --gradient-color-6: #ff7f50; /* Coral */
+  --gradient-color-7: #ffcc00; /* Bright Yellow */
+  --gradient-color-8: #ff69b4; /* Bright Magenta */
+}
+
+#gradient-canvas-green {
+  --gradient-color-1: #003e0d; /* Dark Green */
+  --gradient-color-2: #002001; /* Medium Green */
+  --gradient-color-3: #0f250a; /* Light Green */
+  --gradient-color-4: #065812; /* Yellow */
+  --gradient-color-5: #004d00; /* Forest Green */
+  --gradient-color-6: #009900; /* Bright Green */
+  --gradient-color-7: #4caf50; /* Light Lime Green */
+  --gradient-color-8: #b2ff59; /* Light Green */
+}
+
+#gradient-canvas-vibrant {
+  --classic-gradient-color-1: #9900e6; /* Strong Red */
+  --classic-gradient-color-2: #ff6600; /* Strong Orange */
+  --classic-gradient-color-3: #ffcc00; /* Strong Yellow */
+  --classic-gradient-color-4: #fb00ff; /* Strong Pink */
+  --classic-gradient-color-5: #3300cc; /* Strong Blue */
+  --classic-gradient-color-6: #6600cc; /* Strong Purple */
+  --classic-gradient-color-7: #cc0099; /* Strong Pink */
+  --classic-gradient-color-8: #3333ff; /* Strong Lavender */
+}
+
+#gradient-canvas-classic-light {
+  --classic-gradient-color-1: #ff6666; /* Bold Red */
+  --classic-gradient-color-2: #ff9933; /* Bold Orange */
+  --classic-gradient-color-3: #ffe100; /* Bold Yellow */
+  --classic-gradient-color-4: #ff99cc; /* Bold Green */
+  --classic-gradient-color-5: #cc99ff; /* Bold Blue */
+  --classic-gradient-color-6: #9966ff; /* Bold Purple */
+  --classic-gradient-color-7: #ff66cc; /* Bold Pink */
+  --classic-gradient-color-8: #6666ff; /* Bold Lavender */
+}
+
+#gradient-canvas-bold {
+  --gradient-color-1: #ffcccc; /* Pastel Red */
+  --gradient-color-2: #ffcc99; /* Pastel Orange */
+  --gradient-color-3: #ffff99; /* Pastel Yellow */
+  --gradient-color-4: #ccffcc; /* Pastel Green */
+  --gradient-color-5: #99ffff; /* Pastel Blue */
+  --gradient-color-6: #cc99ff; /* Pastel Purple */
+  --gradient-color-7: #ff99cc; /* Pastel Pink */
+  --gradient-color-8: #ccccff; /* Pastel Lavender */
+}
+
+#gradient-canvas-neon {
+  --gradient-color-1: #ff3399; /* Neon Pink */
+  --gradient-color-2: #ff9933; /* Neon Orange */
+  --gradient-color-3: #ffff00; /* Neon Yellow */
+  --gradient-color-4: #00ff00; /* Neon Green */
+  --gradient-color-5: #00ccff; /* Neon Blue */
+  --gradient-color-6: #9933ff; /* Neon Purple */
+  --gradient-color-7: #ff66cc; /* Neon Magenta */
+  --gradient-color-8: #ff00ff; /* Neon Fuchsia */
+}
+
+.tremor-Legend-root
+{
+  display: none;
+}
+
+.gradient-border {
+  border: 1px solid transparent;
+  background: linear-gradient(white, white),
+    linear-gradient(
+      25deg,
+      rgba(209, 213, 219, 1),
+      rgba(209, 213, 219, 1),
+      rgba(0, 0, 0, 0.63),
+      rgba(209, 213, 219, 1),
+      rgba(209, 213, 219, 1)
+    );
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+/* Basic Swiper Container Style */
+.swiper-container {
+  width: 100%;
+  padding: 20px 0; /* Adjust as needed */
+}
+
+/* Style for Individual Slides */
+.swiper-slide {
+  width: auto; /* This is important for responsive design */
+  border-radius: 8px; /* Rounded corners */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  margin-right: 0px; /* Space between slides */
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+/* Active Slide Style */
+.swiper-slide-active {
+  transform: scale(1.1); /* Scale up the active slide */
+}
+
+
+/* Pagination Styles */
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #666; /* Bullet color */
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: background 0.3s, opacity 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  background: #333; /* Active bullet color */
+  opacity: 1;
+}
+
+.mySwiper {
+  --swiper-navigation-size: 44px;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 10px;
+  --swiper-navigation-color: var(--swiper-theme-color);
+  position: relative; /* Add this line to make it a reference for absolute positioning */  
+}
+.mySwiper .swiper-slide {
+  padding-top: 1%;
+}
+
+.midSwiper {
+  --swiper-navigation-size: 44px;
+  --swiper-navigation-color: var(--swiper-theme-color);
+  position: relative; /* Add this line to make it a reference for absolute positioning */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 80%;
+  width: 6px; /* Adjust the width as needed */
+  height: 6px; /* Adjust the height as needed */
+  background-color: #000; /* Set the background color to black */
+  border-radius: 50%; /* Make the buttons round */
+  z-index: 70;
+}
+
+.swiper-button-prev {
+  left: 10px; /* Adjust the position from the left */
+}
+
+.swiper-button-next {
+  right: 10px; /* Adjust the position from the right */
+}
+
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  width: auto;
+  height: 100%;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+}
+
+.swiper-slide img {
+  display: inline-block;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-slide-next,
+.swiper-slide-prev,
+.swiper-container,
+.swiper-slide-active {
+  width: auto;
+  height: 100%;
+}
+
+.qr-reader {
+  width: 40%;
+  height: 40%;
+}
+
+.iframe-container {
+  width: 100%; /* Set the width to 100% to adjust to the parent container's width */
+  height: 550px; /* Set the desired height */
+  border: none;
+  margin: auto;
+  display: block;
+  position: relative;
+  /* Other CSS styles if needed */
+}
+
+/* React Player Button */ 
+
+.icon__btn {
+  padding: 0 10px;
+  color: #ff00d4;
+}
+
+.slider__container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.control__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inner__controls {
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+  width: 50%;
+}
+
+/* primary text */ 
+span {
+  color: #6b7280;
+  font-size: 0.8rem;
+  /* margin-left: 10px; */
+}
+
+.second__control {
+  display: flex;
+  align-items: center;
+}
+
+
+/* ... Leaflet Styles ... */
+
+/* Apply styles to the leaflet container */
+.leaflet-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Set the desired height */
+}
+
+/* Apply styles to the leaflet tiles */
+.leaflet-tile {
+  width: 256px;
+  height: 256px;
+  opacity: 1;
+}
+
+/* Apply styles to the leaflet marker shadow */
+.leaflet-marker-shadow {
+  margin-left: -12px;
+  margin-top: -41px;
+  width: 41px;
+  height: 41px;
+}
+
+/* Apply styles to the leaflet marker icon */
+.leaflet-marker-icon {
+  margin-left: -12px;
+  margin-top: -41px;
+  width: 25px;
+  height: 41px;
+  z-index: 0;
+}
+
+/* Apply styles to leaflet controls */
+.leaflet-control-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Apply styles to leaflet zoom controls */
+.leaflet-control-zoom {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 5px;
+}
+
+/* Apply styles to leaflet zoom buttons */
+.leaflet-control-zoom a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Apply styles to leaflet attribution */
+.leaflet-control-attribution {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+/* Apply styles to leaflet attribution links */
+.leaflet-control-attribution a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Apply styles to leaflet attribution separator */
+.leaflet-control-attribution span {
+  margin: 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Position lk-control-bar at the bottom center with 10px padding from the bottom */
+.lk-control-bar {
+  position: fixed; /* Set position to fixed */
+  bottom: 20px; /* 20px from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  display: flex;
+  justify-content: space-between; /* Adjust as needed */
+  z-index: 1000; /* Increase z-index to ensure it's above other elements */
+  background: #8989896d;
+  padding-top: 20px;
+  border-radius: 5%;
+}
+
+/* Pagination Styling */
+
+.lk-pagination-control {
+  position: fixed;
+  top: 36px;
+  left: 5px;
+  color:#00ffce;
+  z-index: 80;
+}
+
+.lk-pagination-control:hover {
+  opacity: 1;
+}
+
+.lk-pagination-control > .lk-button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.lk-pagination-control > .lk-button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.lk-pagination-control > .lk-button:first-child > svg {
+  transform: rotate(180deg);
+}
+
+.lk-pagination-count {
+  padding: 0.5rem 0.875rem;
+  border-inline: 1px solid var(--lk-bg);
+}
+
+[data-user-interaction='true'] .lk-pagination-control {
+  opacity: 1;
+}
+
+.lk-pagination-indicator {
+  color: #fff;
+}
+
+/* lk styles */
+.lk-participant-media-video,
+.lk-participant-tile {
+  width: 100px; /* Set to the same value */
+  height: 100px; /* Set to the same value */
+  object-fit: cover;
+  position: relative; /* Change from absolute to relative */
+  /* Make it a circle shape */
+  /* border-radius: 100%; */
+  overflow: hidden;
+  padding: 2px;
+}
+
+.grid-layout {
+  height: 100px
+}
+
+.lk-room-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Hide every other occurrence of .lk-participant-tile */
+.lk-participant-tile:nth-child(even) {
+  display: none;
+}
+
+
+.lk-participant-placeholder {
+  display: none;
+  /* width: 100px;
+  height: 100px; */
+}
+
+.lk-participant-metadata {
+  display: none;
+  color:darkorchid;
+}
+
+.lk-disconnect-button {
+  display: none;
+}
+
+.lk-device-menu {
+  display: none;
+}
+
+.lk-chat-form{
+  margin-left: 10%;
+}
+
+/* Define common styles for all buttons */
+.lk-button {
+  color: #fff; /* White text color */
+  background: linear-gradient(90deg, #7864ff, #ff6ac3);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 0;
+  font-family: 'Arial', sans-serif; /* Choose a professional font */
+}
+
+.lk-button-group-menu {
+  display: none;
+}
+
+/* Define gradient backgrounds and text shadows for each button */
+.lk-control-bar .lk-button[data-lk-source="screen_share"] {
+  display: none;
+}
+
+.lk-control-bar .lk-button[data-lk-source="microphone"] {
+  background: linear-gradient(90deg, #6affee, #1900ff);
+  text-shadow: 1px 1px 2px #6affee, -1px -1px 2px #1900ff;
+}
+
+.lk-control-bar .lk-button[data-lk-source="camera"] {
+  background: linear-gradient(90deg, #e76435, #ff0000);
+  text-shadow: 1px 1px 2px #e76435, -1px -1px 2px #ff0000;
+  z-index: 90;
+}
+
+
+/* Hover styles for all buttons */
+.lk-control-bar .lk-button:hover {
+  background: linear-gradient(90deg, #00ffce, #356de7);
+}
+
+/* You can adjust the colors, fonts, and text effects to match your desired vaporwave style. */
+/* Add vaporwave style to other buttons as needed */
+
+.player-wrapper {
+  position: absolute;
+  z-index: 0;
+  margin-top: -10px;
+  display: contents;
+}
+
+/* React Player Styling: To modify the React Player Location, modify the padding-left and react-player width/height */
+
+.react-player {
+  margin-top: -55.25%;
+  padding-top: 56.25%; 
+  padding-left: 3%;
+  position: absolute; 
+}
+
+.react-player > div {
+  position: absolute; 
+  width: 96% !important;
+  height: 96% !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+      background-color: transparent;
+    }
+}
+
+@layer utilities {
+  /* .overflow-hidden {
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  } */
+}
+
+.ProseMirror .is-editor-empty:first-child::before,
+.ProseMirror .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+/* Custom image styles */
+
+.ProseMirror img {
+  transition: filter 0.1s ease-in-out;
+}
+
+.ProseMirror img:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid #5abbf7;
+  filter: brightness(90%);
+}
+
+/* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
+
+ul[data-type="taskList"] li > label {
+  margin-right: 0.2rem;
+  user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+  ul[data-type="taskList"] li > label {
+    margin-right: 0.5rem;
+  }
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #64748b;
+  margin: 0;
+  cursor: pointer;
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  top: 5px;
+  border: 2px solid black;
+  margin-right: 0.3rem;
+  display: grid;
+  place-content: center;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:hover {
+  background-color: #f8f9fa;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:active {
+  background-color: #64748b;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em;
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+ul[data-type="taskList"] li[data-checked="true"] > div > p {
+  color: #a8a29e;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.focus-layout-wrapper,
+.grid-layout-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(100% - var(--control-bar-height));
+}
+
+.grid-layout-wrapper {
+  flex-direction: column;
+  align-items: center;
+}
+
+.focus-layout-wrapper {
+  align-items: stretch;
+}
+
+.lk-video-conference {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.lk-video-conference-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.lk-prejoin {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  margin-inline: auto;
+  background-color: var(--bg);
+  width: min(100%, 480px);
+  align-items: stretch;
+  color: #fff;
+}
+
+.lk-prejoin .video-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  background-color: black;
+  border-radius: var(--lk-border-radius);
+  overflow: hidden;
+}
+
+.lk-prejoin .video-container video,
+.lk-prejoin .video-container .camera-off-note {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lk-prejoin .video-container video[data-facing-mode='user'] {
+  transform: rotateY(180deg);
+}
+
+.lk-prejoin .video-container .camera-off-note {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: black;
+  display: grid;
+  place-items: center;
+}
+
+.lk-prejoin .video-container .camera-off-note > * {
+  height: 70%;
+  max-width: 100%;
+}
+
+.lk-prejoin .audio-container {
+  display: none;
+}
+
+.lk-prejoin .audio-container audio {
+  width: 100%;
+  height: auto;
+}
+
+.lk-prejoin .button-group-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.lk-prejoin .button-group {
+  width: 50%;
+}
+
+.lk-prejoin .button-group .button {
+  justify-content: left;
+}
+
+.lk-prejoin .button-group .button:first-child {
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  .lk-prejoin .button-group-container {
+    flex-wrap: wrap;
+  }
+}
+
+.lk-prejoin .username-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.lk-prejoin .join-button {
+  --control-fg: var(--accent-fg);
+  --control-bg: var(--accent-bg);
+  --control-hover-bg: var(--accent2);
+  --control-active-bg: var(--accent3);
+  --control-active-hover-bg: var(--accent4);
+  background-color: var(--control-bg);
+}
+
+.lk-chat {
+  display: grid;
+  width: clamp(200px, 55ch, 60ch);
+  background-color: var(--bg2);
+  border-left: 1px solid var(--border-color);
+  align-items: baseline;
+  position: fixed;
+  top: 60px;
+  max-width: 100%;
+  bottom: 150px;
+}
+
+/* Style for the chat container */
+.chat-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensures chat is on top */
+}
+
+/* Style for the button container */
+.button-container {
+  position: fixed;
+  bottom: 5px;
+  right: 20px;
+  z-index: 1000; /* Ensures button is on top */
+}
+
+/* Style for the button */
+.chat-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+.lk-chat-messages {
+  display: flex;
+  max-height: 100%;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow: auto;
+  background: grey;
+  color: white;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.lk-chat-entry {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.25rem;
+  margin: 0 0.25rem;
+}
+
+.lk-chat-entry .meta-data {
+  font-size: 0.75rem;
+  color: var(--fg5);
+  white-space: nowrap;
+  padding: 0 0.3rem;
+  display: flex;
+}
+
+.lk-chat-entry .participant-name {
+  margin-top: 1rem;
+  display: none;
+}
+
+.lk-chat-entry .timestamp {
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.lk-chat-entry .message-body {
+  border-radius: 15px;
+  padding: 0.25rem 0.75rem;
+  word-break: break-word;
+  width: fit-content;
+}
+
+.lk-chat-entry[data-message-origin='local'] .message-body {
+  background-color: var(--bg5);
+}
+
+.lk-chat-entry[data-message-origin='remote'] .message-body {
+  background-color: var(--accent4);
+}
+
+.lk-chat-entry a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.lk-chat-entry:last-child {
+  margin-bottom: 0.25rem;
+}
+
+.lk-chat-form {
+  position: fixed;
+  bottom: 75px;
+  left: 20px;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.lk-chat-form-input {
+  width: 100%;
+}
+
+.lk-chat-form-button {
+  color: #ffffff;
+}
+
+.lk-audio-conference {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.lk-audio-conference-stage {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.grid-layout {
+  --lk-col-count: 2;
+  --lk-row-count: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--lk-col-count), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--lk-row-count), minmax(0, 1fr));
+  grid-gap: var(--grid-gap);
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: var(--grid-gap);
+}
+
+.grid-layout[data-pagination='true'] {
+  padding-bottom: calc(var(--grid-gap) * 2);
+}
+
+.lk-participant-tile {
+}
+
+.lk-participant-tile::after {
+}
+
+.lk-lk-button lk-focus-toggle-button-tile[data-speaking='true']:not([data-source='screen_share'])::after {
+}
+
+.bu.tton .lk-button .lk-focus-toggle-button {
+  display: none;
+}
+
+.lk-button .lk-focus-toggle-button {
+  display: none;
+}
+
+.lk-participant-tile .connection-quality {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.lk-participant-tile[data-quality='poor'] .connection-quality {
+  opacity: 1;
+  transition-delay: 0;
+}
+
+.lk-participant-tile:hover .connection-quality,
+.lk-participant-tile:focus .connection-quality {
+  opacity: 1;
+  transition-delay: 0;
+}
+
+.lk-participant-tile .participant-placeholder {
+  display: none;
+}
+
+.lk-participant-tile[data-video-muted='true'][data-source='camera'] .participant-placeholder {
+}
+
+.participant-metadata {
+  position: absolute;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  left: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  line-height: 1;
+}
+
+.lk-participant-metadata-item {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  color: var(--control-fg);
+  background-image: none;
+  background-color: var(--control-bg);
+  border: 0;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button:not(:disabled):hover {
+  background-color: var(--control-hover-bg);
+}
+
+.button[aria-pressed='true'] {
+  background-color: var(--control-active-bg);
+}
+
+.button[aria-pressed='true']:hover {
+  background-color: var(--control-active-hover-bg);
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.button-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.button-group > .button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-group-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.button-group-menu > .button {
+  height: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group-menu > .button::after {
+  margin-left: 0;
+}
+
+.button-menu::after {
+  display: inline-block;
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  margin-top: -0.25rem;
+  margin-left: 0.5rem;
+  border-left: 0.125em solid;
+  border-bottom: 0.125em solid;
+  transform: rotate(-45deg);
+  transform-origin: center center;
+}
