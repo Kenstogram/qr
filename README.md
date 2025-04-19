@@ -20,7 +20,7 @@
 ## Built on open source
 
 
-- [Dub](https://dub.co) for Short Links and Analytics
+- [Dub](https://refer.dub.co/mr-h) for Short Links and Analytics
 - [HubSpot](https://hubspot.com) for CRM
 - [Leaflet](https://railway.app) Leaflet for interactive maps
 - [LiveKit.io](https://livekit.io/) for Live Streaming and Real Time Communications
