@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  Generate beautiful QR Experiences with AI in seconds using Open Source Software.
+  Build beautiful QR Experiences with AI in seconds using an Open Source Framework for Open Source Software.
 </p>
 
 
@@ -64,3 +64,10 @@ Note that you'll need to:
 ## Authors
 
 - Kenny [@qrexperiences](https://x.com/qrexperiences)
+
+## Credits
+
+- [Spirals](https://spirals.vercel.app/) for great code patterns and some code (ty Steven)
+- [Lim Zi Yang](https://github.com/ZYLIM0702) for the original AI model
+- [@nutlope](https://twitter.com/nutlope)for AI QR Generation model
+- [@kevinhou22](https://twitter.com/kevinhou22) for AI QR Generation model

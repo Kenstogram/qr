@@ -14,7 +14,7 @@ const SwagCard = () => (
         className="rounded-md w-full h-auto mb-4"
       />
       <a
-        href="https://sweatpantsqr.com"
+        href="https://qrexperiences.com"
         target="_blank"
         rel="noopener noreferrer"
       >

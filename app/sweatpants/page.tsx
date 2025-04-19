@@ -32,7 +32,7 @@ export default function SweatpantsPage() {
             Our platform combines cutting-edge design tools with easy customization, allowing you to create unique gear that reflect your personality. Each QR Experience can link to anything from personal messages to social media profiles, making your sweatpants not just clothing but a conversation starter.
           </p>
           <NavLink
-                  href="https://sweatpantsqr.com"
+                  href="https://qrexperiences.com"
                   className="block font-medium text-sm text-white bg-black border border-gray-800 hover:bg-gray-600 active:bg-white active:text-black md:inline"
                 >
                   Get Started
