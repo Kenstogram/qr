@@ -19,6 +19,7 @@
 
 ## Built on open source
 
+Inspired by Steven Tey's [Platform Starter Kit](https://vercel.com/templates/next.js/platforms-starter-kit), this framework is a hard fork of the Platform Starter kit with integrations for:
 
 - [Dub](https://refer.dub.co/mr-h) for Short Links and Analytics
 - [HubSpot](https://hubspot.com) for CRM
@@ -63,7 +64,7 @@ Note that you'll need to:
 
 ## Authors
 
-- Kenny [@qrexperiences](https://x.com/qrexperiences)
+- KennyQR [@qrexperiences](https://x.com/qrexperiences)
 
 ## Credits
 
